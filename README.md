@@ -17,35 +17,10 @@ The Stacks Library is a modern web application designed for book enthusiasts who
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** JavaScript (62.9%)
-- **Styling:** CSS (21.2%)
-- **Markup:** HTML (15.9%)
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- A modern web browser (Chrome, Firefox, Safari, Edge)
-- Node.js (if running a development server)
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/Jean-Youakim/The-Stacks-Library.git
-cd The-Stacks-Library
-```
-
-2. Open the application:
-```bash
-# Option 1: Open index.html directly in your browser
-open index.html
-
-# Option 2: Use a local development server (if available)
-npm install
-npm start
-```
-
+- **Frontend:** JavaScript
+- **Styling:** CSS
+- **Markup:** HTML
+- 
 ## 📖 Usage
 
 1. **Add Books** - Start by adding books to your personal library
@@ -53,32 +28,8 @@ npm start
 3. **Browse** - Explore your collection and discover new reads
 4. **Track Progress** - Keep track of which books you're currently reading
 
-## 🤝 Contributing
-
-Contributions are welcome! To contribute to The Stacks Library:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/YourFeatureName`)
-3. Commit your changes (`git commit -m 'Add some feature'`)
-4. Push to the branch (`git push origin feature/YourFeatureName`)
-5. Open a Pull Request
-
 ## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👨‍💻 Author
-
-**Jean-Youakim**
-
-Feel free to reach out with suggestions, bug reports, or collaboration ideas!
-
-## 🔗 Links
-
-- [Repository](https://github.com/Jean-Youakim/The-Stacks-Library)
-- [Issues](https://github.com/Jean-Youakim/The-Stacks-Library/issues)
-- [Discussions](https://github.com/Jean-Youakim/The-Stacks-Library/discussions)
-
----
 
 Happy reading! 📚✨
