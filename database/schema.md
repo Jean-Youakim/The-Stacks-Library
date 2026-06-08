@@ -2,8 +2,6 @@
 
 ## Database: `stacks`
 
----
-
 ## Collections
 
 ### `users`
