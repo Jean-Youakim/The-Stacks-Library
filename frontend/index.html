@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stacks</title>
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+  <!-- WELCOME SPLASH — fades out to reveal login -->
+  <div id="splashScreen" aria-hidden="true">
+    <div class="splash-bg"></div>
+    <div class="splash-mist splash-mist-1"></div>
+    <div class="splash-mist splash-mist-2"></div>
+    <div class="splash-mist splash-mist-3"></div>
+    <div class="splash-content">
+      <div class="splash-book" id="splashBook">
+        <div class="book-3d">
+          <div class="book-spine"></div>
+          <div class="book-cover-front">
+            <div class="stack-logo" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="book-lines">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="book-pages"></div>
+        </div>
+        <div class="splash-glow-ring"></div>
+      </div>
+      <h1 class="splash-title">Stacks</h1>
+      <button class="splash-enter" id="splashEnter">
+        <span>Enter the Stacks</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+    <div class="splash-particles" id="splashParticles"></div>
+  </div>
+
+  <div class="particles" aria-hidden="true"></div>
+  <main class="stage" aria-label="Stacks login page">
+    <div class="glow" aria-hidden="true"><div class="rays" aria-hidden="true"></div></div>
+  </main>
+
+  <!-- LOGIN -->
+  <section class="wrap" role="region" aria-label="Sign in to Stacks" id="loginSection">
+    <div class="card" role="dialog" aria-modal="false" aria-labelledby="title">
+      <div class="brand">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3 5.5C3 4.12 4.12 3 5.5 3H17a2.5 2.5 0 0 1 2.5 2.5V20a1 1 0 0 1-1.53.85l-1.97-1.2a2 2 0 0 0-2.07 0l-1.88 1.14a1 1 0 0 1-1.06 0l-1.97-1.2a2 2 0 0 0-2.07 0L5 20.85A1 1 0 0 1 3.5 20V5.5Z" stroke="rgba(233,222,255,.9)"/>
+          <path d="M18.5 6.5l3-3m-1 4.5 2.5.5m-3.5 1.5 1.5 2m-4-3.5L15 5m-1.5 4.5L12 8" stroke="rgba(186,143,255,1)" stroke-linecap="round" />
+        </svg>
+        <h1 id="title">Stacks</h1>
+      </div>
+      <p class="subtitle">Sign in to browse the catalog and manage your account.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <input id="email" name="email" type="email" placeholder=" " autocomplete="email" required aria-describedby="emailHint" />
+          <label for="email">Email</label>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 6h16v12H4z" opacity=".4"/><path d="M4 6l8 6 8-6"/></svg>
+        </div>
+        <div class="field">
+          <input id="password" name="password" type="password" placeholder=" " autocomplete="current-password" minlength="6" required />
+          <label for="password">Password</label>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="5" opacity=".4"/><path d="M6 12h12"/></svg>
+        </div>
+        <div class="row">
+          <label class="remember"><input id="remember" type="checkbox" /> Remember me</label>
+          <a href="#" onclick="event.preventDefault(); alert('Password reset is not available yet.');">Forgot password?</a>
+        </div>
+        <button class="btn" type="submit">Enter the Stacks</button>
+        <div id="formMsg" class="notice" role="status" aria-live="polite"></div>
+        <p style="text-align:center; margin-top:6px;">
+          <a href="#" id="goSignup">Don't have an account? Sign up</a>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- SIGN UP -->
+  <section class="wrap hidden" id="signupSection">
+    <div class="card" role="dialog" aria-modal="false" aria-labelledby="signupTitle">
+      <h2 id="signupTitle" style="margin:0 0 10px;">Create Account</h2>
+      <form id="signupForm">
+        <div class="field">
+          <input id="signupEmail" type="email" placeholder=" " required />
+          <label>Email</label>
+        </div>
+        <div class="field">
+          <input id="signupPass" type="password" placeholder=" " required minlength="6" />
+          <label>Password</label>
+        </div>
+        <button class="btn" type="submit">Sign Up</button>
+        <div id="signupMsg" class="notice"></div>
+        <p style="text-align:center; margin-top:6px;">
+          <a href="#" id="backLogin">Already have an account? Login</a>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <div id="fx" aria-hidden="true" style="position:fixed; inset:0; pointer-events:none; z-index:3"></div>
+  <div id="welcome" class="welcome" aria-hidden="true">WELCOME TO THE STACKS</div>
+
+  <!-- TOP BAR + CATALOG -->
+  <div id="catalogShell" class="catalog-shell hidden">
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title">📚 Stacks Catalog</span>
+        <span class="topbar-sub" id="userLabel"></span>
+      </div>
+      <div class="topbar-actions">
+        <button id="cartButton" class="settings-btn" type="button">
+          <span>🛒</span>
+          <span>Cart (0)</span>
+        </button>
+        <button id="settingsButton" class="settings-btn" type="button">
+          <span>⚙</span>
+          <span>Settings</span>
+        </button>
+      </div>
+    </div>
+
+    <section id="catalog" class="catalog hidden" aria-label="Browse the stacks">
+      <div class="searchbar" role="search">
+        <div class="search-input-wrap">
+          <svg class="wand" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M18.5 6.5l3-3m-1 4.5 2.5.5m-3.5 1.5 1.5 2m-4-3.5L15 5m-1.5 4.5L12 8" stroke="rgba(186,143,255,1)" stroke-linecap="round"/>
+          </svg>
+          <input id="search" type="search" placeholder="Search books by title, author, or genre..." aria-label="Search books" />
+          <button class="clear" type="button" hidden>Clear</button>
+        </div>
+        <div class="filters-row">
+          <select id="filterGenre">
+            <option value="">Genre: any</option>
+          </select>
+          <select id="filterYear">
+            <option value="">Year: any</option>
+            <option value="new">Last 5 years</option>
+            <option value="old">Older</option>
+          </select>
+          <select id="filterAvailability">
+            <option value="">Availability: any</option>
+            <option value="available">Available</option>
+            <option value="unavailable">Unavailable</option>
+          </select>
+          <select id="filterFavorites">
+            <option value="">All books</option>
+            <option value="favorites">Favorites only</option>
+          </select>
+          <select id="sortBy">
+            <option value="">Sort: default</option>
+            <option value="title">Title (A–Z)</option>
+            <option value="author">Author (A–Z)</option>
+            <option value="year-new">Year (new → old)</option>
+            <option value="year-old">Year (old → new)</option>
+            <option value="rating">Rating (high → low)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="grid" class="book-grid" role="list"></div>
+      <div id="empty" class="empty" hidden>No books match your search. Try another filter.</div>
+    </section>
+  </div>
+
+  <!-- BOOK DETAIL PANEL -->
+  <aside id="detailPanel" class="detail-panel" aria-label="Book details" aria-hidden="true">
+    <button type="button" id="detailClose" class="btn-ghost detail-close">✕</button>
+    <div class="detail-inner">
+      <div class="detail-left">
+        <div id="detailCover" class="detail-cover-big"></div>
+      </div>
+      <div class="detail-right">
+        <h2 id="detailTitle"></h2>
+        <p id="detailAuthor"></p>
+        <p id="detailMeta" class="meta-small"></p>
+        <p id="detailDesc"></p>
+        <p id="detailPrice" class="detail-price"></p>
+        <div class="detail-actions">
+          <button type="button" id="detailFav" class="btn btn-inline btn-secondary">♡ Favorite</button>
+          <button type="button" id="detailAddCart" class="btn btn-inline">🛒 Add to cart</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CART DRAWER -->
+  <aside id="cartDrawer" class="cart-drawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="cart-inner">
+      <div class="cart-header">
+        <h3>Cart</h3>
+        <button type="button" id="cartClose" class="btn-ghost">✕</button>
+      </div>
+      <ul id="cartItems" class="cart-items"></ul>
+      <p id="cartTotal" class="cart-total">$0.00</p>
+
+      <!-- Checkout details — shown to regular users only (cart.js toggles visibility) -->
+      <form id="checkoutForm" style="display:none; grid-template-columns:1fr; gap:10px; margin-bottom:6px;">
+        <div class="field">
+          <input id="checkoutName" type="text" placeholder=" " required />
+          <label for="checkoutName">Full name</label>
+        </div>
+        <div class="field">
+          <input id="checkoutLocation" type="text" placeholder=" " required />
+          <label for="checkoutLocation">Delivery address</label>
+        </div>
+        <div class="field">
+          <input id="checkoutPhone" type="tel" placeholder=" " required
+            inputmode="numeric" pattern="[0-9+\s\-\(\)]{6,20}"
+            title="Please enter a valid phone number (digits only)" />
+          <label for="checkoutPhone">Phone number</label>
+        </div>
+      </form>
+
+      <button type="button" id="cartCheckout" class="btn btn-inline">Checkout</button>
+      <div id="cartMsg" class="notice"></div>
+    </div>
+  </aside>
+
+  <!-- SETTINGS OVERLAY -->
+  <div id="settingsOverlay" class="settings-overlay">
+    <div class="settings-panel">
+      <nav class="settings-nav">
+        <div class="settings-nav-header">
+          <h2>Settings</h2>
+          <p>Manage your account, catalog, orders, and display settings.</p>
+        </div>
+        <button type="button" data-page="general" class="active">
+          <span class="icon">🏠</span>
+          <span>Overview</span>
+        </button>
+        <button type="button" data-page="books">
+          <span class="icon">📘</span>
+          <span>Add / Edit Book</span>
+        </button>
+        <button type="button" data-page="stats">
+          <span class="icon">📊</span>
+          <span>Library Stats</span>
+        </button>
+        <button type="button" data-page="favorites">
+          <span class="icon">❤️</span>
+          <span>Favorites</span>
+        </button>
+        <button type="button" data-page="appearance">
+          <span class="icon">🎨</span>
+          <span>Appearance</span>
+        </button>
+        <button type="button" data-page="contact" id="contactNavBtn">
+          <span class="icon">✉️</span>
+          <span id="contactNavLabel">Support</span>
+        </button>
+        <button type="button" data-page="myorders" id="myOrdersNavBtn">
+          <span class="icon">🛍️</span>
+          <span>My Orders</span>
+        </button>
+        <button type="button" data-page="orders" style="display:none;">
+          <span class="icon">📦</span>
+          <span>Orders</span>
+        </button>
+
+        <div class="settings-nav-footer">
+          <p><a href="#" id="logoutLink">Log out</a></p>
+          <p class="meta-small">Stacks</p>
+        </div>
+      </nav>
+
+      <div class="settings-pages">
+        <!-- Overview -->
+        <section class="settings-page active" data-page="general">
+          <h3>🏠 Overview</h3>
+          <p>Use this space to manage books, theme preferences, messages, and orders.</p>
+          <div class="panel">
+            <h2>Quick actions</h2>
+            <button class="btn btn-inline" type="button" data-jump="books">➕ Add a new book</button>
+            <button class="btn btn-inline btn-secondary" type="button" data-jump="favorites">View favorites</button>
+            <button class="btn btn-inline btn-secondary" type="button" data-jump="appearance">Change theme</button>
+          </div>
+        </section>
+
+        <!-- Add / Edit Book -->
+        <section class="settings-page" data-page="books">
+          <h3>📘 Add / Edit Book</h3>
+          <p>Add a new book to the catalog or update an existing one.</p>
+          <form id="bookForm" class="panel">
+            <input type="hidden" id="bookId" value="">
+            <div class="field">
+              <input id="bookTitle" type="text" placeholder=" " required />
+              <label for="bookTitle">Title</label>
+            </div>
+            <div class="field">
+              <input id="bookAuthor" type="text" placeholder=" " required />
+              <label for="bookAuthor">Author</label>
+            </div>
+            <div class="field">
+              <input id="bookYear" type="number" min="1500" max="2100" placeholder=" " required />
+              <label for="bookYear">Year</label>
+            </div>
+            <div class="field">
+              <input id="bookGenre" type="text" placeholder=" " required />
+              <label for="bookGenre">Genre</label>
+            </div>
+            <div class="field">
+              <input id="bookPrice" type="number" step="0.01" min="0" placeholder=" " required />
+              <label for="bookPrice">Price (USD)</label>
+            </div>
+            <div class="field">
+              <textarea id="bookDesc" rows="3" placeholder=" "></textarea>
+              <label for="bookDesc">Description</label>
+            </div>
+            <div class="field">
+              <input id="bookTags" type="text" placeholder=" " />
+              <label for="bookTags">Tags (comma separated)</label>
+            </div>
+            <div class="field">
+              <input id="bookStock" type="number" min="0" placeholder=" " value="10" required />
+              <label for="bookStock">Stock quantity</label>
+            </div>
+
+            <!-- Cover: image upload OR gradient -->
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:2px;">
+              <label style="font-size:.8rem; color:var(--muted);">Book cover</label>
+              <div id="coverUploadArea" style="
+                border:1.5px dashed rgba(170,190,230,.35); border-radius:14px;
+                padding:14px; text-align:center; cursor:pointer; transition:border-color .2s;
+                background:rgba(255,255,255,.03);
+              " onclick="document.getElementById('bookCoverImg').click()">
+                <div id="coverPreviewWrap" style="display:none; margin-bottom:10px;">
+                  <img id="coverPreview" src="" alt="Cover preview"
+                    style="max-height:140px; border-radius:10px; object-fit:cover; box-shadow:0 4px 20px rgba(0,0,0,.4);" />
+                </div>
+                <div id="coverUploadPrompt">
+                  <div style="font-size:1.4rem; margin-bottom:4px;">🖼️</div>
+                  <div style="font-size:.8rem; color:var(--muted);">Click to upload a cover image</div>
+                  <div style="font-size:.72rem; color:var(--muted); margin-top:2px;">JPG, PNG, WebP — max 2 MB</div>
+                </div>
+                <input id="bookCoverImg" type="file" accept="image/jpeg,image/png,image/webp" style="display:none;" />
+              </div>
+              <button type="button" id="clearCoverImg" class="btn btn-inline btn-secondary" style="display:none; width:fit-content;">✕ Remove image</button>
+              <details style="margin-top:2px;">
+                <summary style="font-size:.78rem; color:var(--muted); cursor:pointer; user-select:none;">Or use a CSS gradient instead</summary>
+                <div class="field" style="margin-top:8px;">
+                  <input id="bookColor" type="text" placeholder=" " />
+                  <label for="bookColor">Cover gradient (CSS)</label>
+                </div>
+              </details>
+            </div>
+            <div class="row" style="margin-top:8px; justify-content:flex-start;">
+              <label class="remember">
+                <input id="bookAvailable" type="checkbox" checked />
+                Available
+              </label>
+            </div>
+            <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="btn btn-inline" type="submit">Save Book</button>
+              <button class="btn btn-inline btn-secondary" type="button" id="resetBookForm">Clear</button>
+            </div>
+            <div id="bookFormMsg" class="notice" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <!-- Stats -->
+        <section class="settings-page" data-page="stats">
+          <h3>📊 Library Stats</h3>
+          <p>At a glance view of your collection.</p>
+          <article class="panel">
+            <h2>Collection summary</h2>
+            <ul class="stats-list" id="statsList"></ul>
+            <div class="export-buttons">
+              <button class="btn btn-inline btn-secondary" type="button" id="printList">Print List</button>
+            </div>
+          </article>
+        </section>
+
+        <!-- Favorites -->
+        <section class="settings-page" data-page="favorites">
+          <h3>❤️ Favorites</h3>
+          <p>Books you marked as favorites, gathered in one place.</p>
+          <article class="panel">
+            <h2>Favorite books</h2>
+            <ul id="favoritesList" class="favorites-list"></ul>
+            <p class="meta-small" id="favoritesHint"></p>
+          </article>
+        </section>
+
+        <!-- Appearance -->
+        <section class="settings-page" data-page="appearance">
+          <h3>🎨 Appearance</h3>
+          <p>Switch between light and dark modes.</p>
+          <article class="panel">
+            <h2>Theme</h2>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:6px;">
+              <label style="display:flex; align-items:center; gap:6px; font-size:.85rem;">
+                <input type="checkbox" id="themeToggle" />
+                <span>Light mode</span>
+              </label>
+            </div>
+            <p class="meta-small">Your choice is saved in this browser and applied on the next visit.</p>
+          </article>
+        </section>
+
+        <!-- Support (user) / Messages (admin) — same page, different UI -->
+        <section class="settings-page" data-page="contact">
+
+          <!-- USER VIEW -->
+          <div id="userContactView">
+            <h3>✉️ Support</h3>
+            <p>Send a message to the library team. Replies will appear here.</p>
+
+            <!-- Conversation thread -->
+            <div id="userThread" style="
+              max-height:320px; overflow-y:auto; display:flex; flex-direction:column; gap:10px;
+              margin-bottom:14px; padding:4px 2px;
+            "></div>
+
+            <!-- Send message form -->
+            <form id="contactForm" class="panel" style="gap:10px;">
+              <div class="field">
+                <textarea id="contactMsg" rows="3" placeholder=" " required></textarea>
+                <label for="contactMsg">Your message</label>
+              </div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button class="btn btn-inline" type="submit">Send Message</button>
+              </div>
+              <div id="contactStatus" class="notice" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <!-- ADMIN VIEW -->
+          <div id="adminMessagesView" style="display:none;">
+            <h3>💬 Messages</h3>
+            <p>All user conversations. Click a user to open their thread and reply.</p>
+
+            <!-- Conversation list -->
+            <div id="adminConvoList" style="margin-bottom:16px;"></div>
+
+            <!-- Open thread -->
+            <div id="adminThreadView" style="display:none;">
+              <div id="adminThreadHeader" style="
+                display:flex; align-items:center; gap:10px; margin-bottom:10px;
+              ">
+                <button type="button" id="adminBackBtn" class="btn-ghost">← Back</button>
+                <strong id="adminThreadUser" style="font-size:.9rem;"></strong>
+              </div>
+              <div id="adminThread" style="
+                max-height:300px; overflow-y:auto; display:flex; flex-direction:column; gap:10px;
+                margin-bottom:14px; padding:4px 2px;
+              "></div>
+              <form id="adminReplyForm" class="panel" style="gap:10px;">
+                <div class="field">
+                  <textarea id="adminReplyMsg" rows="2" placeholder=" " required></textarea>
+                  <label for="adminReplyMsg">Reply</label>
+                </div>
+                <button class="btn btn-inline" type="submit">Send Reply</button>
+                <div id="adminReplyStatus" class="notice" aria-live="polite"></div>
+              </form>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- User: My Orders -->
+        <section class="settings-page" data-page="myorders">
+          <h3>🛍️ My Orders</h3>
+          <p>Track the status of all your orders here.</p>
+          <div id="userOrdersList" class="panel"></div>
+        </section>
+
+        <!-- Admin: Orders -->
+        <section class="settings-page" data-page="orders">
+          <h3>📦 Pending Orders</h3>
+          <p>Every order placed by users. Update their status or mark as shipped to remove from the list.</p>
+          <div id="adminOrdersList" class="panel"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS: state (API helpers) → notifs → effects → auth → theme → features -->
+  <script src="js/state.js"></script>
+  <script src="js/notifs.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>

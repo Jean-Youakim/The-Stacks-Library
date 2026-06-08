@@ -1,0 +1,202 @@
+/* ============================================================
+   components.css — reusable UI: cards, forms, buttons, books
+   ============================================================ */
+
+/* Login card */
+.card{
+  position:relative; width:min(92vw, 420px);
+  padding:28px 24px 24px; border-radius:24px; backdrop-filter: blur(12px) saturate(140%);
+  background: var(--card-bg);
+  border: 1px solid rgba(160, 170, 200, .25);
+  box-shadow:
+    0 0 0 1px rgba(160, 170, 220, .12) inset,
+    0 16px 60px rgba(60, 90, 180, .25),
+    0 0 120px 20px rgba(var(--brand), .12);
+  z-index: 2;
+}
+.card::before{
+  content:""; position:absolute; inset:-2px; border-radius:26px; padding:2px;
+  background: conic-gradient(from 0deg, rgba(var(--brand), .0), rgba(var(--brand), .6), rgba(120,180,255,.5), rgba(var(--brand), .0));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: rotate 8s linear infinite;
+  opacity:.6;
+  pointer-events: none;
+}
+
+.brand{display:flex; align-items:center; gap:.6rem; margin-bottom:10px;}
+.brand svg{flex:0 0 auto; width:28px; height:28px; filter: drop-shadow(0 0 8px rgba(var(--brand), .8));}
+.brand h1{margin:0; font-size:1.15rem; letter-spacing:.06em; font-weight:700; text-transform:uppercase; color:#efeafe;}
+.theme-light .brand h1{color:#1a1740;}
+.subtitle{margin:0 0 16px; font-size:.95rem; color:var(--muted)}
+
+/* Forms */
+form{display:grid; gap:14px;}
+.field{position:relative;}
+.field input, .field select, .field textarea{
+  width:100%; padding:14px 44px 14px 14px; border-radius:14px;
+  border:1px solid rgba(180,190,220,.28);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  color: var(--ink); outline:none;
+  box-shadow: 0 0 0 2px rgba(150,170,255,0) inset, 0 6px 20px rgba(20,30,60,.24);
+  transition: box-shadow .25s ease, border-color .25s ease, background .25s ease;
+  resize: vertical;
+}
+/* Light: solid readable backgrounds on all inputs */
+.theme-light .field input,
+.theme-light .field select,
+.theme-light .field textarea{
+  background: #ffffff;
+  border-color: rgba(100,110,180,.35);
+  box-shadow: 0 2px 8px rgba(80,100,180,.08);
+  color: #0b1020;
+}
+.theme-light .field input:focus,
+.theme-light .field textarea:focus,
+.theme-light .field select:focus{
+  border-color: rgba(var(--brand), .7);
+  box-shadow: 0 0 0 2px rgba(var(--brand), .2) inset, 0 4px 14px rgba(80,100,200,.15);
+}
+
+.field input::placeholder, .field textarea::placeholder{color: rgba(220,230,255,.3)}
+.theme-light .field input::placeholder,
+.theme-light .field textarea::placeholder{color: rgba(60,70,120,.4);}
+
+.field input:focus, .field textarea:focus, .field select:focus{
+  border-color: rgba(var(--brand), .7);
+  box-shadow: 0 0 0 2px rgba(var(--brand), .35) inset, 0 8px 24px rgba(80,100,200,.28);
+}
+
+/* Floating label */
+.field label{
+  position:absolute; left:12px; top:50%; translate:0 -50%;
+  padding:0 .3rem; font-size:.9rem;
+  color:rgba(230,235,255,.7);
+  pointer-events:none; transition: all .2s ease;
+  background:linear-gradient(180deg, rgba(7,9,14,1), rgba(7,9,14,.3));
+}
+.theme-light .field label{
+  color: rgba(40,50,120,.6);
+  background:linear-gradient(180deg, #ffffff, rgba(255,255,255,.3));
+}
+.field textarea + label{top:18px; translate:0 0;}
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label,
+.field textarea:focus + label,
+.field textarea:not(:placeholder-shown) + label,
+.field select:focus + label{
+  top:-9px; font-size:.75rem; color:#efeafe;
+}
+.theme-light .field input:focus + label,
+.theme-light .field input:not(:placeholder-shown) + label,
+.theme-light .field textarea:focus + label,
+.theme-light .field textarea:not(:placeholder-shown) + label,
+.theme-light .field select:focus + label{
+  color: #3a2fa0;
+}
+
+.icon{position:absolute; right:10px; top:50%; translate:0 -50%; width:22px; height:22px; opacity:.7}
+.theme-light .icon{ opacity:.5; filter: invert(1) hue-rotate(180deg);}
+
+/* Row / remember / links */
+.row{display:flex; gap:10px; align-items:center; justify-content:space-between; margin-top:2px; flex-wrap:wrap;}
+.row .remember{display:flex; gap:8px; align-items:center; font-size:.85rem; color:var(--muted)}
+.row a{color:#d9c8ff; text-decoration:none; font-size:.85rem}
+.theme-light .row a{color:#4a35c0;}
+.row a:hover{text-decoration:underline}
+
+/* Buttons */
+.btn{
+  margin-top:4px; width:100%; padding:14px 16px; border-radius:14px; border:0;
+  cursor:pointer; font-weight:700; letter-spacing:.02em; color:#0b0d14;
+  background: radial-gradient(180px 120px at 50% 0%, rgba(255,255,255,.9), rgba(255,255,255,.65)),
+              linear-gradient(90deg, rgba(var(--brand), .95), rgba(120,180,255,.95));
+  box-shadow: 0 10px 28px rgba(120,180,255,.35), 0 0 50px rgba(var(--brand), .35);
+  transition: transform .12s ease, box-shadow .2s ease, filter .15s ease;
+}
+.btn:hover{transform: translateY(-1px); box-shadow: 0 16px 34px rgba(120,180,255,.45), 0 0 60px rgba(var(--brand), .45);}
+.btn:active{transform: translateY(0); filter:brightness(.96);}
+.btn-inline{padding:8px 12px; border-radius:999px; font-size:.8rem; width:auto; margin-top:0;}
+.btn-secondary{
+  background: linear-gradient(90deg, rgba(180,190,220,.95), rgba(210,220,255,.95));
+  box-shadow: 0 6px 14px rgba(40,60,120,.3);
+  color: #1a1740;
+}
+.btn-ghost{
+  width:auto; padding:6px 10px; border-radius:999px;
+  border:1px solid rgba(190,200,240,.7); background:rgba(7,9,20,.3);
+  color:var(--ink); font-size:.8rem; box-shadow:none; cursor:pointer;
+}
+.theme-light .btn-ghost{
+  background: rgba(255,255,255,.8);
+  border-color: rgba(100,110,200,.4);
+  color: #1a1740;
+}
+
+/* Notices */
+.notice{margin-top:10px; font-size:.85rem; color:rgba(220,230,255,.6)}
+.theme-light .notice{color: rgba(40,50,120,.6);}
+.error{color: rgb(var(--danger)) !important;}
+.theme-light .error{color: #b91c1c !important;}
+.ok{color: rgb(var(--success)) !important;}
+.theme-light .ok{color: #166534 !important;}
+.meta-small{font-size:.75rem; color:var(--muted);}
+
+/* Settings button (topbar) */
+.settings-btn{
+  display:inline-flex; align-items:center; gap:6px; padding:8px 12px;
+  border-radius:999px; border:1px solid rgba(190,200,240,.7);
+  background:rgba(7,9,20,.4); color:var(--ink); cursor:pointer;
+  font-size:.85rem; backdrop-filter:blur(8px);
+}
+.theme-light .settings-btn{
+  background: rgba(255,255,255,.85);
+  border-color: rgba(100,110,200,.35);
+  color: #1a1740;
+}
+.settings-btn span{font-size:1rem;}
+
+/* Book cards */
+.book{
+  position:relative; border-radius:16px; padding:12px;
+  background: var(--book-card-bg);
+  border:1px solid rgba(170,190,230,.25); box-shadow: 0 14px 40px rgba(40,60,120,.25);
+  overflow:hidden; transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+  cursor:pointer;
+}
+.book:hover{transform: translateY(-3px) scale(1.02); box-shadow: 0 20px 55px rgba(90,130,220,.35); border-color: rgba(var(--brand), .5)}
+.book-cover{aspect-ratio:3/4; border-radius:10px; background: var(--cover, linear-gradient(135deg, #5b72f2, #9e6bff)); background-size:cover; background-position:center; box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); position:relative; overflow:hidden}
+.book-cover::after{content:""; position:absolute; inset:0; background: linear-gradient(75deg, rgba(255,255,255,.3) 0%, rgba(255,255,255,0) 35%); transform: translateX(-60%) rotate(-8deg); transition: transform .6s ease}
+.book:hover .book-cover::after{transform: translateX(110%) rotate(-8deg)}
+.book h3{margin:10px 0 4px; font-size:1rem; color:#f1ecff}
+.theme-light .book h3{color:#22223f;}
+.book p{margin:0; font-size:.85rem; color:var(--muted)}
+.theme-light .book{
+  border-color: rgba(120,130,200,.2);
+  box-shadow: 0 4px 20px rgba(80,100,180,.12);
+}
+
+/* Tags */
+.tags{margin-top:8px; display:flex; flex-wrap:wrap; gap:6px}
+.tag{
+  font-size:.7rem; padding:4px 8px; border-radius:999px;
+  border:1px solid rgba(190,200,240,.25);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  color:#e9e4ff;
+}
+.theme-light .tag{
+  color:#3a385f;
+  background: rgba(100,90,200,.1);
+  border-color: rgba(100,90,200,.2);
+}
+
+/* Book actions row */
+.book-actions{margin-top:8px; display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap;}
+.rating{display:flex; gap:2px; font-size:1rem; cursor:pointer;}
+.rating span{filter:drop-shadow(0 0 4px rgba(255,215,130,.6));}
+.favorite-toggle{cursor:pointer; font-size:1rem;}
+.favorite-toggle.fav{filter:drop-shadow(0 0 6px rgba(255,80,140,.8));}
+
+/* Search bar clear button and filter selects in light mode */
+.theme-light .searchbar .clear{ color: #3a2fa0; }
+.theme-light .searchbar{ border-color: rgba(100,110,200,.25); box-shadow: 0 4px 16px rgba(80,100,180,.1); }

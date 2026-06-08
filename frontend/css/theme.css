@@ -1,0 +1,44 @@
+/* ============================================================
+   theme.css — CSS custom properties, dark + light themes
+   ============================================================ */
+
+:root{
+  --bg: #07090e;
+  --ink: #e5eefb;
+  --muted: #98a3b8;
+  --glow: 255,255,255;
+  --glow-accent: 120,180,255;
+  --brand: 186,143,255;
+  --success: 80,230,160;
+  --danger: 255,100,120;
+  --card-bg: linear-gradient(180deg, rgba(10,14,24,.6), rgba(6,8,14,.55));
+  --body-grad: radial-gradient(1200px 800px at 50% 40%, #0b1120 0%, #07090e 55%, #000 100%);
+  --book-card-bg: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  --search-bg: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+}
+
+/* Light theme overrides */
+.theme-light{
+  --bg: #f6f5ff;
+  --ink: #0b1020;
+  --muted: #5a6080;
+  --danger: 185,28,28;
+  --success: 22,101,52;
+  --body-grad: radial-gradient(1200px 800px at 50% 40%, #ffffff 0%, #f1f3ff 55%, #dcdff0 100%);
+  --card-bg: linear-gradient(180deg, rgba(255,255,255,1), rgba(245,247,255,1));
+  --book-card-bg: linear-gradient(145deg, rgba(255,255,255,1), rgba(244,246,255,1));
+  --search-bg: linear-gradient(180deg, rgba(255,255,255,1), rgba(243,245,255,1));
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji;
+  color: var(--ink);
+  background: var(--body-grad);
+  overflow:hidden;
+  transition: background .3s ease, color .3s ease;
+}
+
+.hidden{display:none !important;}
