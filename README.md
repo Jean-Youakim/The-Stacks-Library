@@ -20,7 +20,7 @@ The Stacks Library is a modern web application designed for book enthusiasts who
 - **Frontend:** JavaScript
 - **Styling:** CSS
 - **Markup:** HTML
-- 
+  
 ## 📖 Usage
 
 1. **Add Books** - Start by adding books to your personal library
