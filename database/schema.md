@@ -1,7 +1,6 @@
 # Stacks — MongoDB Schema Reference
 
 ## Database: `stacks`
-Connection: `mongodb+srv://gbmnsx_db_user:...@cluster0.hazumv8.mongodb.net/stacks`
 
 ---
 
